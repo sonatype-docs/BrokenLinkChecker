@@ -153,6 +153,7 @@ class CategoryExtractor:
         # Sonatype IQ Server
         'download-and-compatibility': 'Sonatype IQ Server',
         'release-specific-upgrade-instructions': 'Sonatype IQ Server',
+        'configuration-rest-api': 'Sonatype IQ Server',
 
         # Sonatype Nexus Repository (many of these WERE correctly classified)
         'bundle-development': 'Sonatype Nexus Repository',
@@ -193,8 +194,6 @@ class CategoryExtractor:
             'upgrading-nexus-repository',
             'deploy-nexus-repository',
             'resilient-nexus-repository',
-            'configuration',
-            'config',
             'logging',
             'authentication',
             'saml',

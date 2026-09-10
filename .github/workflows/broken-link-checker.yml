@@ -2,7 +2,7 @@ name: Broken Link Checker
 
 on:
   schedule:
-    - cron: '30 4 * * *'  # 10:00 AM IST (4:30 AM UTC) daily
+    - cron: '0 0 * * *'  # Midnight UTC; compensates for ~4.5h runner queue delay to target ~10 AM IST actual execution
   workflow_dispatch:        # Allow manual trigger from GitHub UI
 
 jobs:

@@ -515,6 +515,10 @@ class EnhancedLinkChecker:
 
         Returns True only for genuinely broken links.
         """
+        # Test environment URLs leaked into production docs - always broken
+        if url.startswith('https://help-test.sonatype.com/'):
+            return True
+
         # URN schemes are invalid in HTML - report as broken
         if url.startswith('urn:'):
             return True

@@ -527,6 +527,10 @@ class EnhancedLinkChecker:
         if 'ideas.sonatype.com' in url and 'HTTPSConnectionPool' in error:
             return False
 
+        # asciinema.org blocks automated requests but links are real - false positive
+        if 'asciinema.org' in url and 'Connection Failed' in error:
+            return False
+
         # 403 Forbidden - usually bot blocking, not truly broken
         if status == 403:
             return False

@@ -1072,6 +1072,9 @@ class EnhancedReportGenerator:
                 elif 'Invalid' in error_type or 'not a valid' in error_type.lower():
                     error_label = 'Invalid URL'
                     error_class = 'einvalid'
+                elif 'Test environment' in error_type:
+                    error_label = 'Test Env URL'
+                    error_class = 'eother'
                 else:
                     error_label = error_type[:18]
                     error_class = 'eother'

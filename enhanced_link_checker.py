@@ -2152,21 +2152,24 @@ class EnhancedBrokenLinkMonitor:
                             'error': error if error else '',
                             'site': doc_url,
                             'context': context,
-                            'result': 'OK' if (status > 0 and status < 400) else ('BROKEN' if self.link_checker.is_truly_broken(link, status, error) else 'FALSE_POSITIVE')
+                            'result': 'BROKEN' if (link.startswith('https://help-test.sonatype.com/') or (not (status > 0 and status < 400) and self.link_checker.is_truly_broken(link, status, error))) else ('OK' if (status > 0 and status < 400) else 'FALSE_POSITIVE')
                         })
 
-                        if status == 0 or status >= 400:
+                        # Force-broken links: flag regardless of HTTP status
+                        force_broken = link.startswith('https://help-test.sonatype.com/')
+
+                        if force_broken or status == 0 or status >= 400:
                             link_data = {
                                 'url': link,
                                 'source': source_url,
                                 'status': status,
-                                'error': error,
+                                'error': error if error else ('Test environment URL in production docs' if force_broken else ''),
                                 'site': doc_url,
                                 'context': context
                             }
 
                             # Classify as truly broken or false positive
-                            if self.link_checker.is_truly_broken(link, status, error):
+                            if force_broken or self.link_checker.is_truly_broken(link, status, error):
                                 all_broken.append(link_data)
                                 self.logger.warning(f"❌ BROKEN: {link} ({error})")
                             else:
